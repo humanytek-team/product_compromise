@@ -17,7 +17,7 @@
 
                         <field name="mrp_move_raw_ids" mode="tree">
                             <form string="Sales Order Lines">
-                                <header>
+                                <header attrs="{'invisible':[('state','=','done')]}">
                                     <button name="action_compromise" type="object" string="Compromise" class="btn-primary"/>
                                     <button name="action_liberate" type="object" string="Liberate" class="btn-primary"/>
                                 </header>
@@ -52,7 +52,7 @@
                                 <field name="product_uom_qty" />
                                 <field name="string_availability_info" />
                                 <!--<field name="compromise_qty" />-->
-                                <field name="state" invisible="1"/>
+                                <field name="state" invisible="0"/>
                             </tree>
 
                         </field>
