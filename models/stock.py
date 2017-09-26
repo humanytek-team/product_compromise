@@ -119,15 +119,15 @@ class StockMove(models.Model):
                                 ('stock_move_out_id.state', '=', 'cancel')])
             product_compromises.unlink()
 
-    @api.multi
-    def action_done(self):
-        if super(StockMove, self).action_done():
-            ProductCompromise = self.env['product.compromise']
-            #StockMove = self.env['stock.move']
-            product_compromises = ProductCompromise.search([
-                                ('stock_move_out_id.id', '=', self.id),
-                                ('stock_move_in_id.state', '=', 'assigned')])
-            product_compromises.unlink()
+    #@api.multi
+    #def action_done(self):
+        #if super(StockMove, self).action_done():
+            #ProductCompromise = self.env['product.compromise']
+            ##StockMove = self.env['stock.move']
+            #product_compromises = ProductCompromise.search([
+                                #('stock_move_out_id.id', '=', self.id),
+                                #('stock_move_in_id.state', '=', 'assigned')])
+            #product_compromises.unlink()
             #for product_compromise in product_compromises:
                 #mrp = product_compromise.stock_move_out_id.production_id
                 #stock_moves = StockMove.seach([('id', '=', mrp.id),
