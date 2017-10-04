@@ -42,7 +42,7 @@ class SaleOrderLine(models.Model):
     mrp_move_raw_ids = fields.One2many(related='mrp_id.move_raw_ids',
                               string='Moves', readonly=True, store=False)
 
-    @api.multi
+    @api.one
     def _compute_mrp_info(self):
         self.mrp_id = self.env['mrp.production'].search([
                                     ('sale_id', '=', self.order_id.id),
