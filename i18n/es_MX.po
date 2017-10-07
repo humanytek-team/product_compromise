@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e-20170815\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-23 23:58+0000\n"
-"PO-Revision-Date: 2017-09-23 23:58+0000\n"
+"POT-Creation-Date: 2017-10-07 10:23+0000\n"
+"PO-Revision-Date: 2017-10-07 10:23+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,16 @@ msgstr "*  Nuevo: Cuando se crea el movimiento de stock y aún no ha sido confir
 "* Hecho: Cuando se procesa el envío, el estado es 'Hecho'."
 
 #. module: product_compromise
+#: model:ir.model.fields,field_description:product_compromise.field_stock_move_dis_product_in
+msgid "Availability Incoming Product"
+msgstr "Productos Entrantes Disponibles"
+
+#. module: product_compromise
+#: model:ir.model.fields,field_description:product_compromise.field_stock_move_dis_product
+msgid "Availability Product"
+msgstr "Productos Disponibles"
+
+#. module: product_compromise
 #: model:ir.model.fields,field_description:product_compromise.field_sale_order_line_product_brand
 msgid "Brand"
 msgstr "Marca"
@@ -38,6 +48,11 @@ msgstr "Marca"
 #: model:ir.ui.view,arch_db:product_compromise.liberate_view
 msgid "Cancel"
 msgstr "Cancelar"
+
+#. module: product_compromise
+#: model:ir.model.fields,field_description:product_compromise.field_sale_order_line_product_categ
+msgid "Category"
+msgstr "Categoría"
 
 #. module: product_compromise
 #: model:ir.model.fields,field_description:product_compromise.field_stock_move_compromise_qty
@@ -166,6 +181,11 @@ msgid "Materials List"
 msgstr "Lista de Materiales"
 
 #. module: product_compromise
+#: model:ir.model.fields,field_description:product_compromise.field_compromise_compromise_max
+msgid "Max quantity"
+msgstr "Max quantity"
+
+#. module: product_compromise
 #: model:ir.model.fields,field_description:product_compromise.field_sale_order_line_mrp_move_raw_ids
 msgid "Moves"
 msgstr "Movimientos"
@@ -243,6 +263,11 @@ msgid "Total Reserved Product"
 msgstr "Total de Productos Reservados"
 
 #. module: product_compromise
+#: model:ir.model.fields,field_description:product_compromise.field_product_compromise_move_picking_id
+msgid "Transfer Reference"
+msgstr "Referencia de transferencia"
+
+#. module: product_compromise
 #: model:ir.actions.act_window,name:product_compromise.action_compromise
 msgid "action.compromise"
 msgstr "action.compromise"
@@ -274,13 +299,13 @@ msgid "product.compromise"
 msgstr "product.compromise"
 
 #. module: product_compromise
-#: code:addons/product_compromise/wizard/compromise.py:61
+#: code:addons/product_compromise/wizard/compromise.py:86
 #, python-format
 msgid "the quantity of products must be less than the quantity of incoming products"
 msgstr "La cantidad de productos debe ser menor que la cantidad de productos entrantes"
 
 #. module: product_compromise
-#: code:addons/product_compromise/wizard/compromise.py:58
+#: code:addons/product_compromise/wizard/compromise.py:83
 #, python-format
 msgid "the quantity of products must be less than the quantity of products in the movement"
 msgstr "La cantidad de productos debe ser menor que la cantidad de productos del movimiento"

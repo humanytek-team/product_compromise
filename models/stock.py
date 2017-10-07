@@ -51,6 +51,14 @@ class StockMove(models.Model):
                             compute='_compute_total_reserved_product',
                             readonly=True, store=False)
 
+    dis_product_in = fields.Float('Availability Incoming Product',
+                            compute='_compute_dis_product_in',
+                            readonly=True, store=False)
+
+    dis_product = fields.Float('Availability Product',
+                            compute='_compute_dis_product',
+                            readonly=True, store=False)
+
     @api.multi
     def _compute_compromise_qty(self):
         self.compromise_qty = sum([product_compromise.qty_compromise
@@ -78,6 +86,14 @@ class StockMove(models.Model):
         self.total_reserved_product = sum([stock_move.reserved_availability
                                 for stock_move in
                                 stock_moves])
+
+    @api.one
+    def _compute_dis_product_in(self):
+        self.dis_product_in = self.product_incoming_qty - self.total_compromise_product
+
+    @api.one
+    def _compute_dis_product(self):
+        self.dis_product = self.product_qty_product - self.total_reserved_product
 
     @api.multi
     def action_compromise(self):

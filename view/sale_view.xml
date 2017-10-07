@@ -32,8 +32,10 @@
                                         <group string='Total'>
                                             <field name="product_qty_product" />
                                             <field name="total_reserved_product" />
+                                            <field name="dis_product" />
                                             <field name="product_incoming_qty" />
                                             <field name="total_compromise_product" />
+                                            <field name="dis_product_in" />
                                             <field name="state" invisible="1"/>
                                         </group>
                                     </group>

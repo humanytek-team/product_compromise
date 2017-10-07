@@ -29,6 +29,19 @@ _logger = logging.getLogger(__name__)
 class Compromise(models.TransientModel):
     _name = "compromise"
 
+    @api.multi
+    @api.onchange('stock_move_in_id')
+    def onchange_stock_move_in_id(self):
+        ProductCompromise = self.env['product.compromise']
+        product_in_compromises = ProductCompromise.search([
+                            ('stock_move_in_id.id', '=', self.stock_move_in_id.id)
+                            ])
+        compromise_in = sum([product_in_compromise.qty_compromise
+                                for product_in_compromise in
+                                product_in_compromises])
+        self.compromise_max = self.stock_move_in_id.product_uom_qty - compromise_in
+        return {}
+
     qty_compromise = fields.Float('Compromise quantity', required=True)
     stock_move_in_id = fields.Many2one('stock.move', 'Incoming products',
         domain=lambda self: [
@@ -37,6 +50,18 @@ class Compromise(models.TransientModel):
             ('state', '=', 'assigned')], required=True)
     stock_move_out_id = fields.Many2one('stock.move', 'Outgoing products',
             default=lambda self: self._context.get('move_out'), required=True)
+    compromise_max = fields.Float('Max quantity', readonly=True)
+
+    #@api.multi
+    #def _compute_compromise_max(self):
+        #ProductCompromise = self.env['product.compromise']
+        #product_in_compromises = ProductCompromise.search([
+                            #('stock_move_in_id.id', '=', self.stock_move_in_id.id)
+                            #])
+        #compromise_in = sum([product_in_compromise.qty_compromise
+                                #for product_in_compromise in
+                                #product_in_compromises])
+        #self.compromise_max = self.stock_move_in_id.product_uom_qty - compromise_in
 
     @api.multi
     def confirm(self):
