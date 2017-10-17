@@ -44,8 +44,17 @@ class SaleOrderLine(models.Model):
 
     @api.one
     def _compute_mrp_info(self):
-        self.mrp_id = self.env['mrp.production'].search([
+        mrps = self.env['mrp.production'].search([
                                     ('sale_id', '=', self.order_id.id),
                                     ('product_id', '=', self.product_id.id),
                                     ('state', '!=', 'cancel')])
-
+        if len(mrps) <= 1:
+            self.mrp_id = mrps
+        else:
+            lines = self.search([('product_id', '=', self.product_id.id),
+                ('order_id', '=', self.order_id.id)])
+            cont = 0
+            for line in lines:
+                if self.id == line.id:
+                    self.mrp_id = mrps[cont]
+                cont += 1
