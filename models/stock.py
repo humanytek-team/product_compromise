@@ -97,6 +97,8 @@ class StockMove(models.Model):
 
     @api.multi
     def action_compromise(self):
+        #MrpProduction = self.env['mrp.production']
+        #MrpProduction.search([('name', '=',)])
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'compromise',
@@ -104,7 +106,8 @@ class StockMove(models.Model):
             'view_type': 'form',
             'context': {'product_id': self.product_id.id,
                         'move_out': self.id,
-                        'qty': self.product_uom_qty},
+                        'qty': self.product_uom_qty,
+                        'location_id': self.location_id.id},
             'views': [(False, 'form')],
             'target': 'new',
             }

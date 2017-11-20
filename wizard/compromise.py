@@ -47,21 +47,12 @@ class Compromise(models.TransientModel):
         domain=lambda self: [
             ('product_id.id', '=', self._context.get('product_id')),
             ('picking_type_id.code', '=', 'incoming'),
-            ('state', '=', 'assigned')], required=True)
+            ('state', '=', 'assigned'),
+            ('location_dest_id.id', '=', self._context.get('location_id'))],
+            required=True)
     stock_move_out_id = fields.Many2one('stock.move', 'Outgoing products',
             default=lambda self: self._context.get('move_out'), required=True)
     compromise_max = fields.Float('Max quantity', readonly=True)
-
-    #@api.multi
-    #def _compute_compromise_max(self):
-        #ProductCompromise = self.env['product.compromise']
-        #product_in_compromises = ProductCompromise.search([
-                            #('stock_move_in_id.id', '=', self.stock_move_in_id.id)
-                            #])
-        #compromise_in = sum([product_in_compromise.qty_compromise
-                                #for product_in_compromise in
-                                #product_in_compromises])
-        #self.compromise_max = self.stock_move_in_id.product_uom_qty - compromise_in
 
     @api.multi
     def confirm(self):
