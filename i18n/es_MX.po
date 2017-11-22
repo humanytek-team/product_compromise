@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e-20170815\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 10:23+0000\n"
-"PO-Revision-Date: 2017-10-07 10:23+0000\n"
+"POT-Creation-Date: 2017-11-21 22:36+0000\n"
+"PO-Revision-Date: 2017-11-21 22:36+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -176,6 +176,11 @@ msgid "MRP Production"
 msgstr "MRP Production"
 
 #. module: product_compromise
+#: model:ir.model,name:product_compromise.model_mrp_production
+msgid "Manufacturing Order"
+msgstr "Orden de Producción"
+
+#. module: product_compromise
 #: model:ir.ui.view,arch_db:product_compromise.sale_order_compromise_form
 msgid "Materials List"
 msgstr "Lista de Materiales"
@@ -268,6 +273,12 @@ msgid "Transfer Reference"
 msgstr "Referencia de transferencia"
 
 #. module: product_compromise
+#: code:addons/product_compromise/models/mrp_production.py:40
+#, python-format
+msgid "You cannot reserve products with compromised stock"
+msgstr "No puedes reservar productos con stock comprometido"
+
+#. module: product_compromise
 #: model:ir.actions.act_window,name:product_compromise.action_compromise
 msgid "action.compromise"
 msgstr "action.compromise"
@@ -299,13 +310,13 @@ msgid "product.compromise"
 msgstr "product.compromise"
 
 #. module: product_compromise
-#: code:addons/product_compromise/wizard/compromise.py:86
+#: code:addons/product_compromise/wizard/compromise.py:77
 #, python-format
 msgid "the quantity of products must be less than the quantity of incoming products"
 msgstr "La cantidad de productos debe ser menor que la cantidad de productos entrantes"
 
 #. module: product_compromise
-#: code:addons/product_compromise/wizard/compromise.py:83
+#: code:addons/product_compromise/wizard/compromise.py:74
 #, python-format
 msgid "the quantity of products must be less than the quantity of products in the movement"
 msgstr "La cantidad de productos debe ser menor que la cantidad de productos del movimiento"

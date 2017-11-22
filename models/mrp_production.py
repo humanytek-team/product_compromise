@@ -20,7 +20,23 @@
 #
 ###############################################################################
 
-import product_compromise
-import sale
-import stock
-import mrp_production
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
+import logging
+_logger = logging.getLogger(__name__)
+
+
+class MrpProduction(models.Model):
+    _name = "mrp.production"
+    _inherit = 'mrp.production'
+
+    def action_assign(self):
+        for production in self:
+            if production.sale_id:
+                for line in production.sale_id.order_line:
+                    for move in line.mrp_move_raw_ids:
+                        if move.compromise_qty > 0:
+                            raise ValidationError(
+                                _('You cannot reserve products with compromised stock'))
+        res = super(MrpProduction, self).action_assign()
+        return res
