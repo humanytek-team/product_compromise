@@ -30,13 +30,25 @@ class MrpProduction(models.Model):
     _name = "mrp.production"
     _inherit = 'mrp.production'
 
+    #def action_assign(self):
+        #for production in self:
+            #if production.sale_id:
+                #for line in production.sale_id.order_line:
+                    #for move in line.mrp_move_raw_ids:
+                        #if move.compromise_qty > 0:
+                            #raise ValidationError(
+                                #_('You cannot reserve products with compromised stock'))
+        #res = super(MrpProduction, self).action_assign()
+        #return res
+
     def action_assign(self):
         for production in self:
+
+            move_to_assign = production.move_raw_ids.filtered(lambda x: x.state in ('confirmed', 'waiting', 'assigned'))
             if production.sale_id:
-                for line in production.sale_id.order_line:
-                    for move in line.mrp_move_raw_ids:
-                        if move.compromise_qty > 0:
-                            raise ValidationError(
-                                _('You cannot reserve products with compromised stock'))
-        res = super(MrpProduction, self).action_assign()
-        return res
+                for move in move_to_assign:
+                    if move.compromise_qty <= 0:
+                        move.action_assign()
+            else:
+                move_to_assign.action_assign()
+        return True

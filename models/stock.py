@@ -59,7 +59,7 @@ class StockMove(models.Model):
                             compute='_compute_dis_product',
                             readonly=True, store=False)
 
-    @api.multi
+    @api.one
     def _compute_compromise_qty(self):
         self.compromise_qty = sum([product_compromise.qty_compromise
                                 for product_compromise in
