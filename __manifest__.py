@@ -29,7 +29,7 @@
     'author': "Humanytek",
     'website': "http://www.humanytek.com",
     'category': 'Sales',
-    'version': '1.0.0',
+    'version': '12.0.1.0.1',
     'depends': ['sale', 'stock', 'mrp_sale_info', 'product_brand'],
     'data': [
             'security/ir.model.access.csv',
