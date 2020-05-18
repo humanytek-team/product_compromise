@@ -1,42 +1,26 @@
-# -*- coding: utf-8 -*-
-###############################################################################
-#
-#    Odoo, Open Source Management Solution
-#    Copyright (C) 2017 Humanytek (<www.humanytek.com>).
-#    Rubén Bravo <rubenred18@gmail.com>
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-###############################################################################
+# pylint: disable=manifest-required-author
+# Copyright 2017 Humanytek.
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     'name': "Compromise Products",
     'summary': """
-    """,
-    'description': """
+    Allows to reserve, liberate and compromise raw materials for each product
+    of a sale order.
     """,
     'author': "Humanytek",
     'website': "http://www.humanytek.com",
+    'license': 'AGPL-3',
     'category': 'Sales',
-    'version': '12.0.1.0.1',
+    'version': '11.0.1.0.0',
     'depends': ['sale', 'stock', 'mrp_sale_info', 'product_brand'],
     'data': [
-            'security/ir.model.access.csv',
-            'view/sale_view.xml',
-            'view/product_compromise_view.xml',
-            'wizard/compromise_view.xml',
+        'security/ir.model.access.csv',
+        'views/sale_view.xml',
+        'views/product_compromise_view.xml',
+        'wizard/compromise_view.xml',
     ],
     'demo': [
     ],
+    'installable': True,
 }

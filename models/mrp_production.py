@@ -1,43 +1,24 @@
-# -*- coding: utf-8 -*-
-###############################################################################
-#
-#    Odoo, Open Source Management Solution
-#    Copyright (C) 2017 Humanytek (<www.humanytek.com>).
-#    Rubén Bravo <rubenred18@gmail.com>
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-###############################################################################
+# Copyright 2017 Humanytek.
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
 import logging
+from odoo import api, models
 _logger = logging.getLogger(__name__)
 
 
 class MrpProduction(models.Model):
-    _name = "mrp.production"
     _inherit = 'mrp.production'
 
+    @api.multi
     def action_assign(self):
         for production in self:
-
-            move_to_assign = production.move_raw_ids.filtered(lambda x: x.state in ('confirmed', 'waiting', 'assigned'))
+            move_to_assign = production.move_raw_ids.filtered(
+                lambda x: x.state in (
+                    'confirmed', 'waiting', 'assigned',
+                    'partially_available'))
             if production.sale_id:
-                for move in move_to_assign:
-                    if move.compromise_qty <= 0:
-                        move._action_assign()
-            else:
-                move_to_assign._action_assign()
+                move_to_assign.filtered(
+                    lambda s: s.compromise_qty <= 0)._action_assign()
+                return True
+            move_to_assign._action_assign()
         return True
